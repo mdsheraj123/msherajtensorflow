@@ -45,6 +45,7 @@ filegroup(
     srcs = [
         "jni_utils.h",
         "op_resolver_lazy_delegate_proxy.h",
+        "transpose_conv_bias.h",
     ],
 )
 
@@ -60,6 +61,7 @@ filegroup(
         "op_resolver_lazy_delegate_proxy.cc",
         "tensor_jni.cc",
         "tensorflow_lite_jni.cc",
+        "transpose_conv_bias.cc",
     ],
 )
 
@@ -88,6 +90,10 @@ cc_library_with_tflite(
         "//tensorflow/lite/core/shims:jni_utils",
         "//tensorflow/lite/core/shims:xnnpack_plugin",
         "//tensorflow/lite/core/shims:verifier_internal",
+        "//tensorflow/lite/kernels/internal:kernel_utils",
+        "//tensorflow/lite/kernels/internal:types",
+        "//tensorflow/lite/kernels/internal:tensor",
+        "//tensorflow/lite/kernels:padding",
     ],
     deps = [
         "//tensorflow/lite:minimal_logging",

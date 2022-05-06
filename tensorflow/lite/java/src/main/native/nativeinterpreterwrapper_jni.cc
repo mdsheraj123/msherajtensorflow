@@ -41,6 +41,8 @@ limitations under the License.
 #include "tensorflow/lite/minimal_logging.h"
 #include "tensorflow/lite/util.h"
 
+#include "tensorflow/lite/java/src/main/native/transpose_conv_bias.h"
+
 using tflite::OpResolver;
 using tflite::jni::AreDimsDifferent;
 using tflite::jni::BufferErrorReporter;
@@ -451,6 +453,8 @@ Java_org_tensorflow_lite_NativeInterpreterWrapper_createInterpreter(
   std::unique_ptr<OpResolver> resolver =
       std::make_unique<tflite::jni::OpResolverLazyDelegateProxy>(
           tflite_shims::CreateOpResolver(), useXnnpack != JNI_FALSE);
+
+  resolver->AddCustom("Convolution2DTransposeBias", mediapipe::tflite_operations::RegisterConvolution2DTransposeBias());
 
   InterpreterBuilder interpreter_builder(*model, *resolver);
   interpreter_builder.SetNumThreads(static_cast<int>(num_threads));
