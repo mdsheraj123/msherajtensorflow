@@ -42,7 +42,10 @@ filegroup(
 
 filegroup(
     name = "native_hdrs",
-    srcs = ["jni_utils.h"],
+    srcs = [
+        "jni_utils.h",
+        "transpose_conv_bias.h",
+    ],
 )
 
 # Native code needed for TF Lite Java API, excluding experimental APIs;
@@ -56,6 +59,7 @@ filegroup(
         "tensor_jni.cc",
         "tensorflow_lite_jni.cc",
         "xnnpackdelegate_jni.cc",
+        "transpose_conv_bias.cc",
     ],
 )
 
@@ -75,6 +79,10 @@ cc_library_with_tflite(
         "//tensorflow/lite/core/shims:framework_stable",
         "//tensorflow/lite/core/shims:jni_initialization",
         "//tensorflow/lite/core/shims:jni_utils",
+        "//tensorflow/lite/kernels/internal:kernel_utils",
+        "//tensorflow/lite/kernels/internal:types",
+        "//tensorflow/lite/kernels/internal:tensor",
+        "//tensorflow/lite/kernels:padding",
     ],
     deps = [
         "//tensorflow/lite:minimal_logging",
